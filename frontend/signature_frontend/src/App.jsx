@@ -24,6 +24,10 @@ import "./App.css";
 import toast from "react-hot-toast";
 import SignatureInstructionsTabs from "./Intructions";
 import * as Yup from "yup";
+import { BsCopy } from "react-icons/bs";
+import { IoMdCheckmark } from "react-icons/io";
+import { HiDownload } from "react-icons/hi";
+import { MdOutlineDownloadDone } from "react-icons/md";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required."),
@@ -39,6 +43,8 @@ function App() {
   const [formValues, setFormValues] = useState({});
   const [copyClicked, setCopyClicked] = useState(false);
   const [downloadClicked, setDownloadClicked] = useState(false);
+  const [signatureGenerated, setSignatureGenerated] = useState(false);
+  const [copyDisabled, setCopyDisabled] = useState(false);
 
   const handleSubmit = async (values, { resetForm }) => {
     setFormValues(values);
@@ -50,6 +56,7 @@ function App() {
     const data = await res.json();
     setHtml(data.html);
     resetForm();
+    setSignatureGenerated(true)
   };
 
   const handleCopy = () => {
@@ -63,6 +70,13 @@ function App() {
       .then(() => {
         toast.success("Signature copied");
         setCopyClicked(true);
+        setCopyDisabled(true);
+
+
+        setTimeout(() => {
+          setCopyClicked(false);
+          setCopyDisabled(false);
+        }, 5000);
       })
       .catch((err) => {
         console.error("Clipboard error", err);
@@ -88,7 +102,7 @@ function App() {
   return (
     <div className="container">
       <Box px={10} pt={6} maxW="1000px" mx="auto">
-        <Text fontSize="sm" fontWeight="bold" color="purple.500" mb={2}>
+        <Text fontSize="sm" fontWeight="bold" color="brand.500" mb={2}>
           Kern Signature Generator
         </Text>
         <Heading as="h1">Email Signature Generator</Heading>
@@ -113,131 +127,146 @@ function App() {
           validateOnBlur
           validateOnChange
         >
-          {({ values, setFieldValue }) => (
-            <Form>
-              <VStack spacing={6} align="stretch" mt={6}>
-                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                  <Field name="name">
-                    {({ field, form }) => (
-                      <FormControl
-                        isInvalid={form.errors.name && form.touched.name}
-                        isRequired
-                      >
-                        <FormLabel htmlFor="name">Name</FormLabel>
-                        <Input {...field} id="name" placeholder="Full Name" />
-                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="title">
-                    {({ field, form }) => (
-                      <FormControl
-                        isInvalid={form.errors.title && form.touched.title}
-                        isRequired
-                      >
-                        <FormLabel htmlFor="title">Title</FormLabel>
-                        <Input {...field} id="title" placeholder="Title" />
-                        <FormErrorMessage>{form.errors.title}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="email">
-                    {({ field, form }) => (
-                      <FormControl
-                        isInvalid={form.errors.email && form.touched.email}
-                        isRequired
-                      >
-                        <FormLabel htmlFor="email">Email</FormLabel>
-                        <Input {...field} id="email" placeholder="name@example.com" />
-                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <PhoneInputField label="Mobile Phone" name="phone_mobile" isRequired />
-                </SimpleGrid>
-
-                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                  <VStack align="stretch" spacing={4}>
-                    <FormControl>
-                      <Checkbox
-                        isChecked={showOffice}
-                        onChange={() => setShowOffice(!showOffice)}
-                      >
-                        Show Office Phone
-                      </Checkbox>
-                    </FormControl>
-                    {showOffice && (
-                      <PhoneInputField label="Office Phone" name="phone_office" />
-                    )}
+          {({ values, setFieldValue }) => 
+              !signatureGenerated ? (
+                <Form noValidate>
+                  <VStack spacing={6} align="stretch" mt={6}>
+                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+                      <Field name="name">
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={form.errors.name && form.touched.name}
+                            isRequired
+                          >
+                            <FormLabel htmlFor="name">Name</FormLabel>
+                            <Input {...field} id="name" placeholder="Full Name" />
+                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+    
+                      <Field name="title">
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={form.errors.title && form.touched.title}
+                            isRequired
+                          >
+                            <FormLabel htmlFor="title">Title</FormLabel>
+                            <Input {...field} id="title" placeholder="Title" />
+                            <FormErrorMessage>{form.errors.title}</FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+    
+                      <Field name="email">
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={form.errors.email && form.touched.email}
+                            isRequired
+                          >
+                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <Input {...field} id="email" placeholder="name@example.com" />
+                            <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+    
+                      <PhoneInputField label="Mobile Phone" name="phone_mobile" isRequired />
+                    </SimpleGrid>
+    
+                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+                      <VStack align="stretch" spacing={4}>
+                        <FormControl>
+                          <Checkbox
+                            isChecked={showOffice}
+                            onChange={() => setShowOffice(!showOffice)}
+                          >
+                            Show Office Phone
+                          </Checkbox>
+                        </FormControl>
+                        {showOffice && (
+                          <PhoneInputField label="Office Phone" name="phone_office" />
+                        )}
+                      </VStack>
+    
+                      <VStack align="stretch" spacing={4}>
+                        <FormControl>
+                          <Checkbox
+                            isChecked={showFax}
+                            onChange={() => setShowFax(!showFax)}
+                          >
+                            Show Fax
+                          </Checkbox>
+                        </FormControl>
+                        {showFax && <PhoneInputField label="Fax" name="phone_fax" />}
+                      </VStack>
+                    </SimpleGrid>
+    
+                    <Field name="company">
+                      {({ field }) => (
+                        <FormControl>
+                          <FormLabel htmlFor="company">Company for Social Links</FormLabel>
+                          <Select {...field} id="company">
+                            <option value="kern">Kern Studios</option>
+                            <option value="mgw">Mardi Gras World</option>
+                            <option value="rivercity">River City Venues</option>
+                          </Select>
+                        </FormControl>
+                      )}
+                    </Field>
+    
+                    <Button type="submit" colorScheme="brand" width="full">
+                      Generate Signature
+                    </Button>
                   </VStack>
+                </Form>
+                ) : (
 
-                  <VStack align="stretch" spacing={4}>
-                    <FormControl>
-                      <Checkbox
-                        isChecked={showFax}
-                        onChange={() => setShowFax(!showFax)}
-                      >
-                        Show Fax
-                      </Checkbox>
-                    </FormControl>
-                    {showFax && <PhoneInputField label="Fax" name="phone_fax" />}
-                  </VStack>
-                </SimpleGrid>
-
-                <Field name="company">
-                  {({ field }) => (
-                    <FormControl>
-                      <FormLabel htmlFor="company">Company for Social Links</FormLabel>
-                      <Select {...field} id="company">
-                        <option value="kern">Kern Studios</option>
-                        <option value="mgw">Mardi Gras World</option>
-                        <option value="rivercity">River City Venues</option>
-                      </Select>
-                    </FormControl>
-                  )}
-                </Field>
-
-                <Button type="submit" colorScheme="purple" width="full">
-                  Generate Signature
-                </Button>
-              </VStack>
-            </Form>
+              <>
+                <Card className='signature-preview' mt={6} boxShadow="md" border="1px solid" borderColor="gray.200">
+                  <CardBody>
+                    <Box dangerouslySetInnerHTML={{ __html: html }} />
+                  </CardBody>
+                </Card>
+      
+                <HStack spacing={4} mt={4}>
+                  <Button
+                    onClick={handleCopy}
+                    colorScheme={copyClicked ? "brand" : "gray"}
+                    variant="solid"
+                    isDisabled={copyDisabled}
+                    leftIcon={copyClicked ? <IoMdCheckmark /> : <BsCopy />}
+                  >
+                    {copyClicked ? "Copied" : "Copy Signature"}
+                  </Button>
+                  <Button
+                    onClick={handleDownload}
+                    colorScheme={downloadClicked ? "brand" : "gray"}
+                    variant="solid"
+                    isDisabled={downloadClicked}
+                    leftIcon={downloadClicked ? <MdOutlineDownloadDone /> : <HiDownload />}
+                  >
+                    {downloadClicked ? "Downloaded" : "Download HTML"}
+                  </Button>
+                  <Button
+                      onClick={() => {
+                        setSignatureGenerated(false);
+                        setHtml(""); // optional
+                      }}
+                      colorScheme="brand"
+                      variant="outline"
+                    >
+                      Generate Another Signature
+                  </Button>
+                </HStack>
+                <Heading as='h2'>Instructions: Setting your signature in Outlook</Heading>
+                <Box mt={6}>
+                  <SignatureInstructionsTabs />
+                </Box>
+              </>
           )}
         </Formik>
 
-        {html && (
-          <>
-            <Card className='signature-preview' mt={6} boxShadow="md" border="1px solid" borderColor="gray.200">
-              <CardBody>
-                <Box dangerouslySetInnerHTML={{ __html: html }} />
-              </CardBody>
-            </Card>
-
-            <HStack spacing={4} mt={4}>
-              <Button
-                onClick={handleCopy}
-                colorScheme={copyClicked ? "purple" : "gray"}
-                variant="solid"
-              >
-                {copyClicked ? "Copied" : "Copy Signature"}
-              </Button>
-              <Button
-                onClick={handleDownload}
-                colorScheme={downloadClicked ? "purple" : "gray"}
-                variant="solid"
-              >
-                {downloadClicked ? "Downloaded" : "Download HTML"}
-              </Button>
-            </HStack>
-
-            <Box mt={6}>
-              <SignatureInstructionsTabs />
-            </Box>
-          </>
-        )}
       </Box>
     </div>
   );
