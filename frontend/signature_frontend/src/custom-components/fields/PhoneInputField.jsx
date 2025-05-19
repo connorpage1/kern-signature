@@ -8,10 +8,17 @@ import {
     Box,
     } from "@chakra-ui/react";
 
-    export default function PhoneInputField({ label, ...props }) {
+export default function PhoneInputField({ label, ...props }) {
     const [field, meta] = useField(props);
     const { setFieldValue } = useFormikContext();
     const [raw, setRaw] = useState("");
+
+    const handleChange = (e) => {
+        const input = e.target.value;
+        const digits = input.replace(/\D/g, "");
+        setRaw(digits);
+        setFieldValue(field.name, formatPhone(digits));
+    };
 
     const formatPhone = (value) => {
         const digits = value.replace(/\D/g, "").slice(0, 10);
@@ -24,12 +31,6 @@ import {
         return result;
     };
 
-    const handleChange = (e) => {
-        const input = e.target.value;
-        const digits = input.replace(/\D/g, "");
-        setRaw(digits);
-        setFieldValue(field.name, formatPhone(digits));
-    };
 
     const buildDisplay = () => {
         const placeholder = "(___) ___-____";

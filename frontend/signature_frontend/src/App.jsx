@@ -19,10 +19,10 @@ import {
   Image,
   HStack,
 } from "@chakra-ui/react";
-import PhoneInputField from "./phone-formatter/PhoneInputField";
+import PhoneInputField from "./custom-components/fields/PhoneInputField";
 import "./App.css";
 import toast from "react-hot-toast";
-import SignatureInstructionsTabs from "./Intructions";
+import SignatureInstructionsTabs from "./custom-components/ui/SignatureIntructionsTabs";
 import * as Yup from "yup";
 import { BsCopy } from "react-icons/bs";
 import { IoMdCheckmark } from "react-icons/io";
