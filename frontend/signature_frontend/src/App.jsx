@@ -255,11 +255,19 @@ function App() {
                       }}
                       colorScheme="brand"
                       variant="outline"
+                      _hover={{
+                          bg: "brand.600",
+                          color: "white",
+                          borderColor: "purple.500",
+                        }}
                     >
                       Generate Another Signature
                   </Button>
                 </HStack>
-                <Heading as='h2'>Instructions: Setting your signature in Outlook</Heading>
+                <Box mt={6}>
+                  <Heading as='h3'>Instructions: Setting your signature in Outlook</Heading>
+                  <Text mt={2}>For best results, especially on MacOS, use the built-in copy button to copy your newly generated email signature.</Text>
+                </Box>
                 <Box mt={6}>
                   <SignatureInstructionsTabs />
                 </Box>
