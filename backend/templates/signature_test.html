@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Email Signature</title>
+    </head>
+    <body style="margin:0; padding:0; font-family: Arial, sans-serif; font-size: 12pt; color: #000; background-color: transparent">
+        <table cellpadding="0" cellspacing="0" style="line-height: 1.2; text-align: left; background-color: transparent">
+            <tr>
+                <td style="border:none; padding:0; margin:0;">
+                    <strong style="font-family: Arial, sans-serif; font-size: 16pt; color:#7030a0;">{{ name }}</strong> 
+                </td>
+            </tr>
+            <tr>
+                <td style="border:none; padding:0; margin:0;">
+                    <strong style="font-family: Arial, sans-serif; font-size: 12pt; color:#7030a0;">{{ title }} | {{ associated_companies_formatted}} </strong> 
+                </td> 
+            </tr>
+            <tr>
+                <td style="font-family: Arial, sans-serif; font-size:10pt; border:none; padding:0; margin:0;">
+                    1380 Port of New Orleans Place, New Orleans, LA 70130
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: Arial, sans-serif; font-size:10pt; border:none; padding:0; margin:0;">
+                {% if phone_office %}(O) {{ phone_office }} | {% endif %}(M) {{ phone_mobile }} | {% if phone_fax %}(F) {{ phone_fax }} | {% endif %} 
+                <a href="mailto:{{ email }}" style="font-family: Arial, sans-serif; font-size: 10pt color:#8300ee; text-decoration:none;">{{ email }}</a>
+        
+                </td>
+            </tr>
+            <tr>
+                <td style="font-family: Arial, sans-serif; font-size:10pt; border:none; padding:0; margin:0;">
+                    <i> Part of the Blaine Kern Artists, Inc. family </i>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:10pt; border:none; padding:0; margin:0;">
+                    <a href="http://www.kernstudios.com/" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">Kern Studios</a> |
+                    <a href="http://www.mardigrasworld.com/" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">Mardi Gras World</a> |
+                    <a href="http://www.rivercityvenues.com/" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">River City Venues</a>
+                </td>
+            </tr>
+            {% comment %} <tr>
+                <td style="font-family: Arial, sans-serif; font-size:10pt; border:none; padding:0; margin:0;">
+                {% if social.facebook %}<a href="{{ social.facebook }}" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">Facebook</a>{% endif %}
+                {% if social.linkedin %} | <a href="{{ social.linkedin }}" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">LinkedIn</a>{% endif %}
+                {% if social.twitter %} | <a href="{{ social.twitter }}" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">Twitter</a>{% endif %}
+                {% if social.instagram %} | <a href="{{ social.instagram }}" style="font-family: Arial, sans-serif; font-size: 10pt; color:#8300ee; text-decoration:none;">Instagram</a>{% endif %}
+                </td>
+            </tr> {% endcomment %}
+            <tr>
+                <td style="padding: 5px 0; border:none; margin:0;">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                        <td style="border:none; padding:0; margin:0;">
+                            <a href="https://www.kernstudios.com/">
+                                <img src="https://www.kernstudios.com/wp-content/uploads/2025/05/kern_logo.png" alt="Kern Studios" height="100" style="border:none;" />
+                            </a>
+                        </td>
+                        <td style="border:none; padding:0; margin:0;">
+                            <a href="https://www.mardigrasworld.com/">
+                                <img src="https://www.kernstudios.com/wp-content/uploads/2025/05/mgw_logo.png" alt="Mardi Gras World" height="100" style="border:none;" />
+                            </a>
+                        </td>
+                        <td style="border:none; padding:0; margin:0;">
+                            <a href="https://www.rivercityvenues.com/">
+                                <img src="https://www.kernstudios.com/wp-content/uploads/2025/05/rcv_logo.png" alt="River City Venues" height="100" style="border:none;" />
+                            </a>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:9pt; font-family:'Times New Roman', serif; color:#5a2781; padding-top: 5px; border: none">
+                    <strong style="font-size:9pt; font-family:'Times New Roman', serif; color:#5a2781;">
+                        This message and any attachments are intended only for the use of the addressee and may contain information that is privileged and confidential. If the reader of the message is not the intended recipient or an authorized representative of the intended recipient, you are hereby notified that any dissemination of this communication is strictly prohibited. If you have received this communication in error, notify the sender immediately by return email and delete the message and any attachments from your system.
+                    </strong>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
