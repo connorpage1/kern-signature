@@ -34,6 +34,9 @@ const validationSchema = Yup.object({
   title: Yup.string().required("Title is required."),
   email: Yup.string().email("Invalid email").required("Email is required."),
   phone_mobile: Yup.string().required("Mobile phone is required."),
+  associated_companies: Yup.array()
+                          .min(1, "Please select at least one company.")
+                          .required("Please select at least one company."),
 });
 
 function App() {
@@ -119,7 +122,7 @@ function App() {
             phone_office: "",
             phone_fax: "",
             phone_mobile: "",
-            company: "kern",
+            associated_companies: [],
             showOfficeFax: false,
           }}
           validationSchema={validationSchema}
@@ -202,15 +205,31 @@ function App() {
                       </VStack>
                     </SimpleGrid>
     
-                    <Field name="company">
-                      {({ field }) => (
-                        <FormControl>
-                          <FormLabel htmlFor="company">Company for Social Links</FormLabel>
-                          <Select {...field} id="company">
-                            <option value="kern">Kern Studios</option>
-                            <option value="mgw">Mardi Gras World</option>
-                            <option value="rivercity">River City Venues</option>
-                          </Select>
+                    <Field name="associated_companies">
+                      {({ field, form }) => (
+                        <FormControl                             
+                          isInvalid={form.errors.name && form.touched.name}
+                          isRequired
+                          >
+                          <FormLabel>Associated Companies</FormLabel>
+                          <VStack align="start">
+                            {["Kern Studios", "Mardi Gras World", "River City Venues"].map((company) => (
+                              <Checkbox
+                                key={company}
+                                value={company}
+                                isChecked={field.value?.includes(company)}
+                                onChange={(e) => {
+                                  const isChecked = e.target.checked;
+                                  const newValue = isChecked
+                                    ? [...(field.value || []), company]
+                                    : field.value.filter((c) => c !== company);
+                                  form.setFieldValue("associated_companies", newValue);
+                                }}
+                              >
+                                {company}
+                              </Checkbox>
+                            ))}
+                          </VStack>
                         </FormControl>
                       )}
                     </Field>

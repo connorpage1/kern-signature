@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Email Signature</title>
+    </head>
+    <body style="margin:0; padding:0; font-family: Arial, sans-serif; font-size: 12pt; color: #000;">
+        <table cellpadding="0" cellspacing="0" style="width:100%; max-width:600px; border-collapse: collapse;">
+        <tr>
+            <!-- LEFT: Logos in vertical column, centered, with divider -->
+            <td style="width: 120px; vertical-align: top; padding-right: 15px; border-right: 2px solid #7030a0;">
+            <table cellpadding="12" cellspacing="0" style="width:100%; text-align: center;">
+                <tr>
+                <td>
+                    <a href="https://www.kernstudios.com/">
+                    <img src="https://www.kernstudios.com/wp-content/uploads/2025/05/kern_logo.png"
+                        alt="Kern Studios"
+                        style="max-height: 60px; width: auto; height: auto; display: block; margin: 0 auto;" />
+                    </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                    <a href="https://www.mardigrasworld.com/">
+                    <img src="https://www.kernstudios.com/wp-content/uploads/2025/05/mgw_logo.png"
+                        alt="Mardi Gras World"
+                        style="max-height: 60px; width: auto; height: auto; display: block; margin: 0 auto;" />
+                    </a>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                    <a href="https://www.rivercityvenues.com/">
+                    <img src="https://www.kernstudios.com/wp-content/uploads/2025/05/rcv_logo.png"
+                        alt="River City Venues"
+                        style="max-height: 60px; width: auto; height: auto; display: block; margin: 0 auto;" />
+                    </a>
+                </td>
+                </tr>
+            </table>
+            </td>
+
+            <!-- RIGHT: Info block -->
+            <td style="padding-left: 15px; vertical-align: top;">
+            <table cellpadding="2" cellspacing="0" style="width:100%; font-family: Arial, sans-serif; font-size: 10pt;">
+                <tr>
+                <td style="font-size: 16pt; color:#7030a0;"><strong>{{ name }}</strong></td>
+                </tr>
+                <tr>
+                <td style="font-size: 11pt; color:#7030a0;"><strong>{{ title }} | {{ associated_companies_formatted }}</strong></td>
+                </tr>
+                <tr>
+                <td>1380 Port of New Orleans Place, New Orleans, LA 70130</td>
+                </tr>
+                <tr>
+                <td>
+                    {% if phone_office %}(O) {{ phone_office }} | {% endif %}(M) {{ phone_mobile }}{% if phone_fax %} | (F) {{ phone_fax }}{% endif %}
+                </td>
+                </tr>
+                <tr>
+                <td>
+                    <a href="mailto:{{ email }}" style="color:#8300ee; text-decoration:none;">{{ email }}</a>
+                </td>
+                </tr>
+                <tr>
+                <td><br /><i>Part of the Blaine Kern Artists, Inc. family</i></td>
+                </tr>
+                <tr>
+                <td>
+                    <a href="http://www.kernstudios.com/" style="color:#8300ee; text-decoration:none;">Kern Studios</a> |
+                    <a href="http://www.mardigrasworld.com/" style="color:#8300ee; text-decoration:none;">Mardi Gras World</a> |
+                    <a href="http://www.rivercityvenues.com/" style="color:#8300ee; text-decoration:none;">River City Venues</a>
+                </td>
+                </tr>
+            </table>
+            </td>
+        </tr>
+
+        <!-- Full-width disclaimer row -->
+        <tr>
+            <td colspan="2" style="padding-top: 12px;">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                <td style="font-size:9pt; font-family:'Times New Roman', serif; color:#5a2781;">
+                    <strong>
+                    This message and any attachments are intended only for the use of the addressee and may contain privileged and confidential information. If you are not the intended recipient, please notify the sender and delete this message.
+                    </strong>
+                </td>
+                </tr>
+            </table>
+            </td>
+        </tr>
+        </table>
+    </body>
+</html>
