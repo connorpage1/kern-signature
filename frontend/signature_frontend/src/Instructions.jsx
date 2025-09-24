@@ -18,11 +18,11 @@ import {
         <TabPanels>
             <TabPanel>
             <Text>
-                1. Open Outlook → ⚙️ (top right) → <strong>Accounts</strong>.<br />
-                2. Accounts &gt; <strong>Signatures</strong>.<br />
+                1. Outlook → ⚙️ → Accounts → Signatures .<br />
+                2. Click <strong>+</strong> to create a new signature.<br />
                 3. Paste the signature.<br />
-                4. Configure usage rules.<br />
-                5. <strong>Save</strong>.
+                4. Name and save it <br />
+                5. Configure usage rules.<br />
             </Text>
             </TabPanel>
             <TabPanel>
