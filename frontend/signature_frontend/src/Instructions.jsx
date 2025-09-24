@@ -9,7 +9,7 @@ import {
 
     function SignatureInstructionsTabs() {
     return (
-        <Tabs mt={8} isFitted variant="enclosed">
+        <Tabs mt={15} isFitted variant="enclosed">
         <TabList mb="1em">
             <Tab>Outlook - Windows (New)</Tab>
             <Tab>Outlook - Windows (Old)</Tab>
@@ -18,8 +18,8 @@ import {
         <TabPanels>
             <TabPanel>
             <Text>
-                1. Outlook → ⚙️ → <strong>View all Outlook settings</strong>.<br />
-                2. Mail &gt; <strong>Compose and reply</strong>.<br />
+                1. Open Outlook → ⚙️ (top right) → <strong>Accounts</strong>.<br />
+                2. Accounts &gt; <strong>Signatures</strong>.<br />
                 3. Paste the signature.<br />
                 4. Configure usage rules.<br />
                 5. <strong>Save</strong>.
@@ -34,8 +34,8 @@ import {
             </TabPanel>
             <TabPanel>
             <Text>
-                1. Preferences → <strong>Signatures</strong>.<br />
-                2. Click <strong>+</strong>, paste and name.<br />
+                1. Outlook → Settings → <strong>Signatures</strong>.<br />
+                2. Click <strong>+</strong>, paste, and name.<br />
                 3. Assign to your account if needed.
             </Text>
             </TabPanel>

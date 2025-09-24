@@ -8,11 +8,7 @@ app = Flask(
     __name__,
     static_folder="static",
     static_url_path="/",
-    # FOR DEPLOYMENT: 
-    template_folder="backend/templates"
-    # FOR DEVELOPMENT: 
-    # template_folder="templates"
-    
+    template_folder=os.environ.get("TEMPLATE_FOLDER", "templates")
 )
 
 CORS(app)

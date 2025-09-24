@@ -22,7 +22,7 @@ import {
 import PhoneInputField from "./phone-formatter/PhoneInputField";
 import "./App.css";
 import toast from "react-hot-toast";
-import SignatureInstructionsTabs from "./Intructions";
+import SignatureInstructionsTabs from "./Instructions";
 import * as Yup from "yup";
 import { BsCopy } from "react-icons/bs";
 import { IoMdCheckmark } from "react-icons/io";
@@ -47,16 +47,25 @@ function App() {
   const [copyDisabled, setCopyDisabled] = useState(false);
 
   const handleSubmit = async (values, { resetForm }) => {
-    setFormValues(values);
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const data = await res.json();
-    setHtml(data.html);
-    resetForm();
-    setSignatureGenerated(true)
+    try {
+      setFormValues(values);
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
+      const data = await res.json();
+      setHtml(data.html);
+      resetForm();
+      setSignatureGenerated(true);
+    } catch (error) {
+      toast.error("Failed to generate signature. Please try again.");
+    }
   };
 
   const handleCopy = () => {
@@ -78,8 +87,7 @@ function App() {
           setCopyDisabled(false);
         }, 5000);
       })
-      .catch((err) => {
-        console.error("Clipboard error", err);
+      .catch(() => {
         toast.error("Failed to copy signature");
       });
   };
